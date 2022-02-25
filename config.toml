@@ -1,27 +1,23 @@
 [Eth]
 NetworkId = 1
 TrieTimeout = 4000000000000
-TriesInMemory = 150
+TriesInMemory = 156
 
-[Eth.Publisher]
-PublishTimeout = "30s"
-MaxAddedBlocks = 513
-ExpireTime = "6h"
-HealthTimeout = "30s"
-DiscoveryTTL = "20s"
-DiscoveryRenew = "3s"
-BackupLimit = 10000
+[Eth.Verifier]
+ConcurrencyLimit = 64
+ConfusedDiffLayers = 15
+WaitConfirmedSecondsLimit = 10
+ClearIgnoreRounds = 0
 
-[Eth.Publisher.Redis]
-Namespace = "rpcplanteth"
+[Eth.Verifier.Redis]
 ClusterAddr = ["tf-nodereal-prod-rpcplanteth.uzn8om.clustercfg.use1.cache.amazonaws.com:6379"]
 PoolTimeout = "10s"
 DialTimeout = "10s"
-WriteTimeout = "1m"
-ReadTimeout = "15s"
+WriteTimeout = "5s"
+ReadTimeout = "10s"
 
 [Node]
-DataDir = "/server/publisher/data"
+DataDir = "/server/verifier/data"
 NoUSB = true
 IPCPath = "geth.ipc"
 HTTPHost = "0.0.0.0"
@@ -30,7 +26,7 @@ HTTPVirtualHosts = ["*"]
 HTTPModules = ["eth", "net", "web3", "txpool", "parlia"]
 
 [Node.LogConfig]
-FileRoot = "/server/publisher/logs/"
-FilePath = "publisher.log"
+FileRoot = "/server/verifier/logs/"
+FilePath = "verifier.log"
 MaxBytesSize = 10485760
 Level = "info"
